@@ -4,12 +4,11 @@
 #include <unistd.h>
 
 #include "irslinger.h"
-
-#include "ir_command.h"
+#include "encode.h"
 #include "generate.h"
-#include "ac_controller.h"
 
 #define GPIO_PIN 13
+#define PRINT 0
 
 const int ir_start[] = { 9000, 4500 };
 const int ir_pause[] = { 500, 8000 };
@@ -53,12 +52,13 @@ int* encode_command(unsigned char* command, int* pulse_size) {
     return encoded;
 }
 
-void send(ir_command* ir, int print) {
+void ir_send(ir_command* ir) {
     unsigned char* generated = generate(ir);
 
     // get its interpretation so we can compare it with a "real" command
-    if (print)
+    #if PRINT
         print_ir_command(ir);
+    #endif
 
     // encode into pulses and send
     int pulse_size = 0;
@@ -73,36 +73,4 @@ void send(ir_command* ir, int print) {
 
     free(generated);
     free(encoded_command);
-}
-
-int main(int argc, char ** argv) {
-    ac_state state;
-    init_state(&state);
-
-    // generate command to set temp
-    ir_command ir;
-    turn_on(&state, &ir);
-    send(&ir, 1);
-    sleep(8);
-
-    set_temp(&state, &ir, 16);
-    send(&ir, 1);
-    sleep(8);
-
-    set_temp(&state, &ir, 23);
-    send(&ir, 1);
-    sleep(8);
-
-    turn_sixth_sense_on(&state, &ir);
-    send(&ir, 1);
-    sleep(8);
-
-    turn_sixth_sense_dehumidify(&state, &ir);
-    send(&ir, 1);
-    sleep(8);
-
-    turn_off(&state, &ir);
-    send(&ir, 1);
-
-    return 0;
 }
