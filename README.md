@@ -7,3 +7,5 @@ gcc -o decode src/receiver/*.c src/*.c src/emitter/generate.c -I src -I src/emit
 ```
 gcc -o encode src/emitter/*.c src/*.c -I src -I src/emitter -lm -lpigpio -pthread
 ```
+
+To compile as library do ```make && sudo make install```.
