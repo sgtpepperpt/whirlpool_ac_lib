@@ -3,6 +3,7 @@
 #include <string.h>
 
 #include "generate.h"
+#include "ac_controller.h"
 #include "util.h"
 
 unsigned char byte_encode_hour(int hour) {

@@ -20,7 +20,7 @@ install: libwhirlpoolir.so
 	install -d $(DESTDIR)$(PREFIX)/lib/
 	install -m 644 libwhirlpoolir.so $(DESTDIR)$(PREFIX)/lib/
 	install -d $(DESTDIR)$(PREFIX)/include/
-	install -m 644 include/ac_controller.h include/encode.h include/ir_command.h $(DESTDIR)$(PREFIX)/include/
+	install -m 644 include/ac_controller.h $(DESTDIR)$(PREFIX)/include/
 
 clean:
 	$(RM) *.o *.so*
