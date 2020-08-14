@@ -4,6 +4,10 @@
 #define MIN_TEMP 16
 #define MAX_TEMP 30
 
+#ifdef __cplusplus
+extern "C"{
+#endif
+
 typedef enum {
     AC_MODE_COOL = 0x02,
     AC_MODE_HEAT = 0x00,
@@ -61,5 +65,9 @@ void turn_jet_off(ac_state* state);
 void turn_sixth_sense_on(ac_state* state);
 void set_sixth_temperature(ac_state* state, int temperature);
 void turn_sixth_sense_dehumidify(ac_state* state);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
