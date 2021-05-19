@@ -44,7 +44,9 @@ raw_sleep_mode_t get_raw_sleep_mode(sleep_mode_t sleep_mode) {
     }
 }
 
-void init_state(ac_state* state) {
+void init_state(ac_state* state, int ir_gpio_pin) {
+    state->ir_gpio_pin = ir_gpio_pin;
+
     state->is_on = 0;
     state->temperature = 23;
     state->sixth_sense_temp = 0;
@@ -133,7 +135,7 @@ void create_command_and_send(ac_state* state, unsigned char op) {
     command.is_on_state = state->is_on;
 
     // send the generated command via IR
-    ir_send(&command);
+    ir_send(state->ir_gpio_pin, &command);
 }
 
 void turn_on(ac_state* state) {

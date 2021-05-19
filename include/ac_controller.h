@@ -30,6 +30,8 @@ typedef enum {
 } sleep_mode_t;
 
 typedef struct {
+    int ir_gpio_pin;
+
     int is_on;
     int temperature;
     int sixth_sense_temp;
@@ -51,7 +53,7 @@ typedef struct {
     int wifi;
 } ac_state;
 
-void init_state(ac_state* state);
+void init_state(ac_state* state, int ir_gpio_pin);
 
 void turn_on(ac_state* state);
 void turn_off(ac_state* state);

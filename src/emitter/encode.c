@@ -7,7 +7,6 @@
 #include "encode.h"
 #include "generate.h"
 
-#define GPIO_PIN 13
 #define PRINT 0
 
 const int ir_start[] = { 9000, 4500 };
@@ -52,7 +51,7 @@ int* encode_command(unsigned char* command, int* pulse_size) {
     return encoded;
 }
 
-void ir_send(ir_command* ir) {
+void ir_send(int gpio_pin, ir_command* ir) {
     unsigned char* generated = generate(ir);
 
     // get its interpretation so we can compare it with a "real" command
@@ -63,7 +62,7 @@ void ir_send(ir_command* ir) {
     // encode into pulses and send
     int pulse_size = 0;
     int* encoded_command = encode_command(generated, &pulse_size);
-    int result = irSlingRaw(GPIO_PIN, 38000, 0.5, encoded_command, pulse_size);
+    int result = irSlingRaw(gpio_pin, 38000, 0.5, encoded_command, pulse_size);
 
     // char generated_cmd[43];
     // for (size_t i = 0; i < IR_COMMAND_LEN; i++)
