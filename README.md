@@ -1,11 +1,12 @@
-The emitter uses [IR Slinger](https://github.com/bschwind/ir-slinger) by Brian Schwind.
+# Whirlpool A/C driver library
 
-```
-gcc -o decode src/receiver/*.c src/*.c src/emitter/generate.c -I src -I src/emitter
-```
+## Dependencies
+* [IR Slinger](https://github.com/bschwind/ir-slinger) by Brian Schwind.
 
-```
-gcc -o encode src/emitter/*.c src/*.c -I src -I src/emitter -lm -lpigpio -pthread
-```
+## Compiling
 
-To compile as library do ```make && sudo make install```.
+To compile as a shared library just run ```make && sudo make install```
+
+To compile the decoder/receiver run ```make decoder```
+
+To compile the emitter example run ```make example```

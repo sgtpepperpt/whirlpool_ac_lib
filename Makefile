@@ -6,6 +6,15 @@ ifeq ($(PREFIX),)
 	PREFIX := /usr/local
 endif
 
+
+decoder:
+	gcc $(CFLAGS) -o decoder src/receiver/*.c src/*.c src/emitter/generate.c $(LFLAGS) $(IFLAGS)
+
+
+example:
+	gcc $(CFLAGS) -o example src/emitter/*.c src/*.c $(LFLAGS) $(IFLAGS)
+
+
 libwhirlpoolir.so:
 	gcc -c $(CFLAGS) -o ac_controller.o src/emitter/ac_controller.c $(LFLAGS) $(IFLAGS)
 	gcc -c $(CFLAGS) -o encode.o src/emitter/encode.c $(LFLAGS) $(IFLAGS)
@@ -23,4 +32,4 @@ install: libwhirlpoolir.so
 	install -m 644 include/ac_controller.h $(DESTDIR)$(PREFIX)/include/
 
 clean:
-	$(RM) *.o *.so*
+	$(RM) *.o *.so* decoder example
