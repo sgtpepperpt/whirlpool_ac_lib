@@ -7,14 +7,6 @@ ifeq ($(PREFIX),)
 endif
 
 
-decoder:
-	gcc $(CFLAGS) -o decoder src/receiver/*.c src/*.c src/emitter/generate.c $(LFLAGS) $(IFLAGS)
-
-
-example:
-	gcc $(CFLAGS) -o example src/emitter/*.c src/*.c $(LFLAGS) $(IFLAGS)
-
-
 libwhirlpoolir.so:
 	gcc -c $(CFLAGS) -o ac_controller.o src/emitter/ac_controller.c $(LFLAGS) $(IFLAGS)
 	gcc -c $(CFLAGS) -o encode.o src/emitter/encode.c $(LFLAGS) $(IFLAGS)
@@ -23,6 +15,14 @@ libwhirlpoolir.so:
 	gcc -c $(CFLAGS) -o ir_command.o src/ir_command.c $(LFLAGS) $(IFLAGS)
 
 	gcc -shared -fPIC -Wl,-soname,libwhirlpoolir.so -o libwhirlpoolir.so util.o ir_command.o generate.o ac_controller.o encode.o -lc
+
+
+decoder:
+	gcc $(CFLAGS) -o decoder src/receiver/*.c src/*.c src/emitter/generate.c $(LFLAGS) $(IFLAGS)
+
+
+example:
+	gcc $(CFLAGS) -o example src/emitter/*.c src/*.c $(LFLAGS) $(IFLAGS)
 
 
 install: libwhirlpoolir.so
